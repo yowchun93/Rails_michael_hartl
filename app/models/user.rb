@@ -9,4 +9,17 @@ class User < ActiveRecord::Base
   has_secure_password 
   validates :password, presence: true, length: {minimum: 6}
 
+  # ayy lmao
+  # def self.digest(string)
+  #   cost = ActiveModel::SecurePassword.min_cost ? Bcrypt::Engine::MIN_COST : 
+  #                                                 Bcrypt::Engine.cost 
+  #   Bcrypt::password.create(string, cost: cost)
+  # end
+
+   def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
+
 end
