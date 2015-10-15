@@ -13,29 +13,35 @@ class User < ActiveRecord::Base
   has_secure_password 
   validates :password, presence: true, length: {minimum: 6}
 
-  # ayy lmao
-  # def self.digest(string)
-  #   cost = ActiveModel::SecurePassword.min_cost ? Bcrypt::Engine::MIN_COST : 
-  #                                                 Bcrypt::Engine.cost 
-  #   Bcrypt::password.create(string, cost: cost)
-  # end
-
-  def User.digest(string)
+  #generate a password for testing 
+  def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
 
-  def User.new_token
+  # generate a random string to be saved as token 
+  def self.new_token
     SecureRandom.urlsafe_base64   
   end 
+  # save the the new random string as a token
 
+  #1.create a random string of digits for use as remembe rtoken 
+  #2.place the token in the cookies with expiration date 
+  #3.save the hash digest of the token to database 
+  #4.place encrypted version of user id in browser cookies
+  # to make sure of security
+  #5. when presented with cookie containing persisten user id ,
+  # find th database using given id, verify 
+  # remember token matches hash digest from database 
   def remember 
     self.remember_token = User.new_token
-    update_attribute(:remember_digest, User.digest(remember_token))
+    # i dont understand this 
+    update_attribute(:remember_digest, User.digest(self.remember_token))
   end
 
   def authenticated?(remember_token)
+    return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
 
