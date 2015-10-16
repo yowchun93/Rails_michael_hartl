@@ -19,6 +19,38 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end 
 
   # test "succesful edit" do 
+  #   get edit_user_path(@user) 
+  #   assert_template 'users/edit'
+  #   name = "User"
+  #   email = "foo@bar.com"
+  #   patch user_path(@user),user: { name: name,
+  #                                  email: email,
+  #                                  password: "",
+  #                                  password_confirmation: ""}
+  #   # make sure flash is not empty , edit succesful
+  #   assert_not flash.empty?
+  #   # make sure redirected to user page
+  #   assert_redirected_to @user
+  #   @user.reload
+  #   assert_equal name, @user.name
+  #   assert_equal email, @user.email
+  # end
+  # test "unsuccesful edit" do
+  #   # go to edit user page
+  #   get edit_user_path(@user)
+  #   #make sure user edit page shows 
+  #   assert_template 'users/edit'
+  #   #edit user with false information
+  #   patch user_path(@user), user: { name: "" ,
+  #                                   email: "foo@invalid.com",
+  #                                   password: "foo",
+  #                                   password_confirmation: "bar"}
+
+  # end
+
+
+
+  # test "succesful edit" do 
   #   log_in_as(@user)
   #   get edit_user_path(@user)
   #   assert_template 'users/edit'

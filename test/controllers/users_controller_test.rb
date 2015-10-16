@@ -12,6 +12,8 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  #chapter 9 edit 
+  # make sure redirect when logged in as wrong user 
   test "should redirect edit when not logged in " do 
     get :edit, id: @user
     assert_not flash.empty?
@@ -24,6 +26,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to login_url
   end 
 
+  # chapter 9 make sure redirected when wrong user
   test "should redirect edit when logged in as wrong user" do
     log_in_as(@other_user)
     get :edit,id: @user
@@ -44,14 +47,14 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to login_url
   end
 
-
-  # Chapter 9 admin destroy
+  # # Chapter 9 admin destroy
+  #failing test 
    test "should redirect destroy when not logged in" do
     assert_no_difference 'User.count' do
       delete :destroy, id: @user
     end
     assert_redirected_to login_url
-  end
+   end
 
   test "should redirect destroy when logged in as a non-admin" do
     log_in_as(@other_user)
