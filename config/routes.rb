@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   # create restful routes for user 
   resources :users
+  resources :account_activations, only: [:edit]
+
 
   # get 'static_pages/help'
 
